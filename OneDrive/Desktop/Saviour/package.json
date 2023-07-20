@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "antd": "^5.7.1",
+    "axios": "^1.4.0",
+    "moment": "^2.29.4",
+    "react-hook-form": "^7.45.2",
+    "react-redux": "^8.1.1",
+    "react-router-dom": "^6.14.2",
+    "redux": "^4.2.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  }
+}

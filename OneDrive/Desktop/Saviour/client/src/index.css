@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;500&display=swap');
-@tailwind base;
-@tailwind component;
-@tailwind utilities;
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 *{
   font-family: 'Montserrat', sans-serif;;
@@ -9,15 +10,29 @@
   margin: 0;
 }
 
-.main{
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   height: 100vh;
-   background-color: blueviolet;
+input{
+ height:40 px !important ;
+ border: 1px solid grey !important ;
+ border-radius: 2px !important ;
 }
 
-.project-title{
-  color:white;
+input:focus{
+  outline:none !important ;
+   box-shadow:#140202 !important ;
 }
+
+.ant-form-item{
+  margin-bottom: 0 !important
+}
+
+a:hover{
+  text-decoration: underline !important;
+  color:black
+}
+.ant-btn-primary :hover {
+  color: red;
+  text-decoration:underline;
+}
+
+
 
