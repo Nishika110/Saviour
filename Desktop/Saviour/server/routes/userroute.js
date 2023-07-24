@@ -1,11 +1,14 @@
-const router = require("expres").Router();
-const bcrypt = require("bcrypt.js");
+const express = require('express');
+const router = express.Router();
+const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
-const wt=require("jsonwebtoken");
+const jwt=require("jsonwebtoken");
+const authMiddleware=require("../middlewares/authMiddleware")
 //register new user
 router.post("/register", async (req, res) => {
     try {
         //check already existing user
+        console.log("Password received in the request:", req.body.password);
         const userExists = await User.findOne({
             email: req.body.email
         });
@@ -17,8 +20,10 @@ router.post("/register", async (req, res) => {
         }
         //hash the password
         const salt = await bcrypt.genSalt(10);
-        const hashedpass = await bcrypt.hash(req.body.password, salt);
-        req.body.password = hashedpass;
+      
+       
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+        req.body.password= hashedPassword;
         //save user
         const user = new User(req.body);
         await user.save();
@@ -29,9 +34,11 @@ router.post("/register", async (req, res) => {
         });
     }
     catch (error) {
+        console.log(error);
         return res.send({
             success: false,
             message: error.message,
+          
         })
     }
 });
@@ -49,8 +56,9 @@ router.post("/login", async (req, res) => {
             });
         }
         //compare the password
-        const salt = await bcrypt.genSalt(10);
-        const validpass = await bcrypt.compare(req.body.password, user.password);
+        
+      
+        const validpass = await bcrypt.compare(req.body.password, userExists.password);
         if(!validpass){
             return res.send({
                 success: false,
@@ -58,10 +66,7 @@ router.post("/login", async (req, res) => {
             }); 
         }
         //generate token
-       const token=jwt.sign({
-        userId:user._id},
-        process.env.JWT_SECRET,
-        {expiredIN:'1d'})
+        const token = jwt.sign({ userId: userExists._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
         
 
         
@@ -72,6 +77,7 @@ router.post("/login", async (req, res) => {
         });
     }
     catch (error) {
+        console.log(error);
         return res.send({
             success: false,
             message: error.message,
@@ -80,4 +86,22 @@ router.post("/login", async (req, res) => {
     }
 });
 
+router.get("/get-current-user", authMiddleware, async(req,res)=>{
+    try{
+      const user=await User.findOne({_id:req.body.userId});   
+    
+      
+      return res.send({
+        success:true,
+        message:"User fetched successfully",
+        data:user,
+      });
+    }catch(error){
+        return res.send({
+            success:false,
+            message: error.message,
+
+        })
+    }
+})
 module.exports=router;

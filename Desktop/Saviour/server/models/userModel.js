@@ -1,76 +1,78 @@
-const mongoose=require("mongoose");
-const userSchema=new mongoose.Schema({
-   
-    userType:{
+const mongoose = require("mongoose");
+const userSchema = new mongoose.Schema({
+
+    userType: {
         type: String,
         required: true,
-        enum: ['donor','organization','hospital','admin'],
+        enum: ["donor","organization ", "hospital", "admin"],
 
     },
     //donor or admin
-    name:{
-        type:String,
-        required:function(){
-            if( this.userType==='admin'||this.userType==='donor'){
+    name: {
+        type: String,
+        required: function () {
+            if (this.userType === 'admin' || this.userType === 'donor') {
                 return true;
             }
             return false;
         },
     },
     //hospital name
-    hospitalName:{
-        type:String,
-        required:function(){
-            if( this.userType==='hospital'){
+    hospitalName: {
+        type: String,
+        required: function () {
+            if (this.userType === 'hospital') {
                 return true;
             }
             return false;
         },
     },
-    organizationName:{
-        type:String,
-        required:function(){
-            if( this.userType==='organization'){
+    organizationName: {
+        type: String,
+        required: function () {
+            if (this.userType === 'organization') {
                 return true;
             }
             return false;
         },
     },
-    website:{
-        type:String,
-        required:function(){
-            if( this.userType==='organziation'||this.userType==='hospital'){
+    website: {
+        type: String,
+        required: function () {
+            if (this.userType === 'organization' || this.userType === 'hospital') {
                 return true;
             }
             return false;
         },
-       
-        },
-        address:{
-            type:String,
-            required:function(){
-                if( this.userType==='organziation'||this.userType==='hospital'){
-                    return true;
-                }
-                return false;
-            },
-           
-            },
-    email:{
-        type:String,
-        required:true,
-        unique:true,
-        },
-    password:{
-        type:String,
-        required:true,
-       
-         },  
-        phone:{
-            type:String,
-            required:true,
-           
-         }         
-});
 
-module.exports=mongoose.model("users",userSchema);
+    },
+    address: {
+        type: String,
+        required: function () {
+            if (this.userType === 'organization' || this.userType === 'hospital') {
+                return true;
+            }
+            return false;
+        },
+
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    phone: {
+        type: String,
+        required: true,
+
+    }
+},
+    {
+        timestamps: true,
+    });
+
+module.exports = mongoose.model('users', userSchema);

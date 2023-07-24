@@ -7,7 +7,7 @@ function OrgHospital({type} ) {
   return (
     < >
     <Form.Item  label={ <label style={{ color: "white" }}> {type=== "hospital"? 'Hospital Name': 'Organization Name'}</label>}
-                name={type==="hospital"?'Hospital Name': 'Organization Name'}>
+                name={type==="hospital"?'hospitalName': 'organizationName'}>
             <Input />
           </Form.Item>
           <Form.Item name="owner" label={<label style={{ color: "white" }}> Owner</label>}>
@@ -23,7 +23,7 @@ function OrgHospital({type} ) {
             <Input />
           </Form.Item>
           <Form.Item name="password" label={<label style={{ color: "white" }}> Password</label>}>
-            <Input />
+            <Input type="password"/>
           </Form.Item>
           <Form.Item name="address" label={<label style={{ color: "white" }}>Address</label>} className="col-span-2">
             <TextArea rows={3} />
