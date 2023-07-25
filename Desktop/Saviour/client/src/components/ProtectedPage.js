@@ -4,7 +4,7 @@ import { GetCurrentUser } from "../apicall/users";
 import { getLoggedInUserName } from "../utils/helpers";
 import { useDispatch, useSelector } from "react-redux";
 import { SetCurrentUser } from "../redux/usersSlice";
-import {SetLoading} from "../redux/loadersSlice"
+import { SetLoading } from "../redux/loadersSlice"
 import { useNavigate } from "react-router-dom";
 function ProtectedPage({ children }) {
   const { currentUser } = useSelector((state) => state.users);
@@ -36,8 +36,25 @@ function ProtectedPage({ children }) {
   }, []);
   return (
     <div >
-      {currentUser && <h1>Welcome {getLoggedInUserName(currentUser)}</h1>}
-      {children}
+      {/* header */}
+      <div className="flex justify-between items-center bg-secondary text-white px-5 py-3">
+       <div>
+        <h1 className="text-2xl">
+          SAVIOUR BLOODBANK
+        </h1>
+        <span className="text-xs margin-5">{currentUser.userType.toUpperCase()}</span></div>
+        
+        <div className="flex items-center gap-1">
+         <i class="ri-user-3-line"></i>
+          <div className="flex flex-col ml-0" ><span className="mr-5 text-md cursor-pointer">{getLoggedInUserName(currentUser).toUpperCase()}</span>
+           
+          </div>
+          <i class="ri-logout-circle-r-line ml-5 cursor-pointer" onClick={()=>{localStorage.removeItem("token");navigate("/login");}}></i> 
+      </div>
+      </div>
+      
+      
+      <div className="p-5">{children}</div>
     </div>
   );
 }
