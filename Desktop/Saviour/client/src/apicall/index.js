@@ -7,7 +7,7 @@ export const axiosInstance=async( method,endpoint,payload)=>{
          url:endpoint,
          data:payload,
          headers:{
-          authorization: `Bearer ${localStorage.getItem("token")}`
+          authorization: `Bearer ${localStorage.getItem("token")}`,
        },
     });
    

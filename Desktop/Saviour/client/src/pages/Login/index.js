@@ -1,17 +1,23 @@
 import { Form, Input, Button, Radio ,message} from "antd";
-import React from "react";
+import React, {useEffect} from "react";
 import { Link,useNavigate } from "react-router-dom";
 import {  LoginUser } from "../../apicall/users";
-
+import {useDispatch} from "react-redux";
+import {SetLoading} from "../../redux/loadersSlice";
+import { getAntdInputValidation } from "../../utils/helpers";
 function Login() {
+  const dispatch=useDispatch();
   const [type, setType] = React.useState('donor')
   const navigate=useNavigate()
   const onFinish = async (values) => {
+    
     try {
+      dispatch(SetLoading(true));
       const response = await LoginUser(values);
       if (response.success) {
         message.success(response.message)
         localStorage.setItem("token",response.data);
+        dispatch(SetLoading(false));
         navigate("/")
       }
       else{
@@ -19,17 +25,26 @@ function Login() {
         throw new Error(response.message);
       }
     } catch (error) {
+      dispatch(SetLoading(false));
       message.error(error.message);
     }
   };
+
+  useEffect(()=>{
+    if(localStorage.getItem("token")){
+      navigate("/");
+    }
+  },[])
   return (
     <div className=' flex h-screen items-center justify-center bg-primary ' >
 
       <Form
         layout="vertical"
-        className=" bg-secondary rounded shadow grid grid-cols-1 p-5 gap-5 w-half"
+        className=" bg-secondary rounded shadow grid grid-cols-1 p-5 gap-5 w-half "
         onFinish={onFinish}
       >
+     
+      
 
         <h1 className=" text-2xl "> <span className=" text-primary">{type.toUpperCase()}-LOGIN</span><hr /></h1>
         <Radio.Group onChange={(e) => setType(e.target.value)} value={type} >
@@ -40,14 +55,14 @@ function Login() {
 
 
        
-        <Form.Item className="margin-bottom=0" name="email" label={<label style={{ color: "white" }}>E-mail</label>}>
+        <Form.Item rules={getAntdInputValidation()} className="margin-bottom=0" name="email" label={<label style={{ color: "white" }} >E-mail</label>}>
           <Input />
         </Form.Item>
         
-        <Form.Item className="margin-top=0"name="password" label={<label style={{ color: "white" }}>Password</label>}>
+        <Form.Item rules={getAntdInputValidation()} className="margin-top=0"name="password" label={<label style={{ color: "white" }} >Password</label>}>
           <Input type="password" />
         </Form.Item>
-
+   
 
 
 
@@ -56,8 +71,9 @@ function Login() {
         <Link to="/register" className=" text-center text-primary " >
           Dont have an account? Register
         </Link>
-
+      
       </Form>
+     
     </div>
   );
 }

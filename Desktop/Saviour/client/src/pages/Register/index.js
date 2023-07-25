@@ -1,24 +1,38 @@
 import { Form, Input, Button, Radio, message } from "antd";
-import React from "react";
-import { Link } from "react-router-dom";
+import React,  {useEffect} from "react";
+import { Link, useNavigate  } from "react-router-dom";
 import OrgHospital from "./OrgHospital";
 import { RegisterUser } from "../../apicall/users";
+import {useDispatch} from "react-redux";
+import {SetLoading} from "../../redux/loadersSlice";
+import { getAntdInputValidation } from "../../utils/helpers";
 function Register() {
+  const dispatch=useDispatch();
   const [type, setType] = React.useState("donor")
+  const navigate=useNavigate()
   const onFinish = async (values) => {
     try {
+      dispatch(SetLoading(true));
       const response = await RegisterUser({ ...values, userType: type, });
       if (response.success) {
-        message.success(response.message)
+        message.success(response.message);
+        dispatch(SetLoading(false));
+        navigate("/login");
       }
       else{
-      
+    
         throw new Error(response.message);
       }
     } catch (error) {
+      dispatch(SetLoading(false));
       message.error(error.message);
     }
   };
+  useEffect(()=>{
+    if(localStorage.getItem("token")){
+      navigate("/");
+    }
+  },[])
   return (
     <div className=' flex h-screen items-center justify-center bg-primary ' >
 
@@ -36,16 +50,16 @@ function Register() {
         </Radio.Group>
 
         {type === "donor" && (<>{""}
-          <Form.Item name="name" label={<label style={{ color: "white" }}>Name</label>}>
+          <Form.Item rules={getAntdInputValidation()}name="name" label={<label style={{ color: "white" }}>Name</label>}>
             <Input />
           </Form.Item>
-          <Form.Item name="email" label={<label style={{ color: "white" }}> E-mail</label>}>
+          <Form.Item rules={getAntdInputValidation()}name="email" label={<label style={{ color: "white" }}> E-mail</label>}>
             <Input />
           </Form.Item>
-          <Form.Item name="phone" label={<label style={{ color: "white" }}> Phone</label>}>
+          <Form.Item rules={getAntdInputValidation()}name="phone" label={<label style={{ color: "white" }}> Phone</label>}>
             <Input />
           </Form.Item>
-          <Form.Item name="password" label={<label style={{ color: "white" }}> Password</label>}>
+          <Form.Item rules={getAntdInputValidation()} name="password" label={<label style={{ color: "white" }}> Password</label>}>
             <Input type="password" />
           </Form.Item>
         </>)}
