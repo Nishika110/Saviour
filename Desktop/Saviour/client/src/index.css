@@ -10,10 +10,15 @@
   margin: 0;
 }
 
-input ,textarea{
+input ,textarea, select{
  min-height:40 px !important ;
  border: 1px solid grey !important ;
- border-radius: 2px !important ;
+ border-radius: 2px !important ; 
+ width: 100% !important
+}
+select{
+height: 40px;
+
 }
 
 input:focus,textarea:focus{
@@ -28,6 +33,11 @@ input:focus,textarea:focus{
 a:hover{
   text-decoration: underline !important;
   color:black
+}
+.ant-btn-primary {
+  color: white;
+  background-color: red;
+  border: 1px solid #C50000;
 }
 .ant-btn-primary :hover {
   color: red;
@@ -44,3 +54,18 @@ a:hover{
 i{
   font-size:18px;
 }
+.ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  outline: none;
+  color:crimson;
+    transition: all 0.3s;
+}
+:where(.css-dev-only-do-not-override-11avrc4).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  outline: none;
+  color:crimson;
+  text-shadow: 0 0 0.25px currentcolor;
+}
+
+.ant-form-item-label{
+  padding: 3px !important;;
+}
+

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { message } from "antd";
 import { GetCurrentUser } from "../apicall/users";
 import { getLoggedInUserName } from "../utils/helpers";
@@ -10,6 +10,7 @@ function ProtectedPage({ children }) {
   const { currentUser } = useSelector((state) => state.users);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const getCurrentUser = async () => {
     try {
       dispatch(SetLoading(true));
@@ -35,28 +36,29 @@ function ProtectedPage({ children }) {
     }
   }, []);
   return (
+    currentUser && (
     <div >
-      {/* header */}
-      <div className="flex justify-between items-center bg-secondary text-white px-5 py-3">
-       <div>
-        <h1 className="text-2xl">
-          SAVIOUR BLOODBANK
-        </h1>
-        <span className="text-xs margin-5">{currentUser.userType.toUpperCase()}</span></div>
-        
-        <div className="flex items-center gap-1">
-         <i class="ri-user-3-line"></i>
-          <div className="flex flex-col ml-0" ><span className="mr-5 text-md cursor-pointer">{getLoggedInUserName(currentUser).toUpperCase()}</span>
-           
+    {/* header */}
+     <div className="flex justify-between items-center bg-secondary text-white px-5 py-3">
+        <div>
+          <h1 className="text-2xl">
+            SAVIOUR BLOODBANK
+          </h1>
+          
+          <span className="text-xs margin-5">{currentUser.userType}</span>
           </div>
-          <i class="ri-logout-circle-r-line ml-5 cursor-pointer" onClick={()=>{localStorage.removeItem("token");navigate("/login");}}></i> 
+
+        <div className="flex items-center gap-1">
+        <i className="ri-user-3-line"></i>
+        <div className="flex flex-col ml-0" ><span className="mr-5 text-md cursor-pointer" onClick={()=>navigate("/profile")}>{getLoggedInUserName(currentUser)}</span>
+          </div>
+        <i className="ri-logout-circle-r-line ml-5 cursor-pointer" onClick={() => { localStorage.removeItem("token"); navigate("/login"); }}></i>
+        </div>
       </div>
-      </div>
-      
-      
-      <div className="p-5">{children}</div>
+{/* //body */}
+      <div className="px-5 py-2">{children}</div>
     </div>
-  );
+  ));
 }
 
 export default ProtectedPage;

@@ -1,11 +1,11 @@
 export const getLoggedInUserName = (user) => {
-    if (user.userType == "donor") {
+    if (user.userType === "donor") {
         return user.name
     }
-    else if (user.userType == "hospital") {
+    else if (user.userType === "hospital") {
         return user.hospitalName
     }
-    else if (user.userType == "organization") {
+    else if (user.userType === "organization ") {
         return user.organizationName
     }
 };
