@@ -14,3 +14,12 @@ export const GetCurrentUser = async()=>{
     const response =await axiosInstance("get","/api/users/get-current-user");
     return response;
 };
+
+export const GetAllDonors = ()=>{
+    return axiosInstance("get","/api/users/get-all-donors");
+ };
+
+export const GetAllHospitals = ()=>{
+    return axiosInstance("get","/api/users/get-all-hospitals");
+ };
+ 

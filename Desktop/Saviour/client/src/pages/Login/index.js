@@ -13,7 +13,9 @@ function Login() {
     
     try {
       dispatch(SetLoading(true));
-      const response = await LoginUser(values);
+      const response = await LoginUser({
+        ...values,
+        userType: type});
       if (response.success) {
         message.success(response.message)
         localStorage.setItem("token",response.data);

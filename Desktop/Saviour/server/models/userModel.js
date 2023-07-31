@@ -1,10 +1,11 @@
-const mongoose = require("mongoose");
-const userSchema = new mongoose.Schema({
+const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
+const userSchema = new mongoose.Schema({
     userType: {
         type: String,
         required: true,
-        enum: ["donor","organization ", "hospital", "admin"],
+        enum: ["donor", "organization ", "hospital", "admin"],
 
     },
     //donor or admin
@@ -74,5 +75,7 @@ const userSchema = new mongoose.Schema({
     {
         timestamps: true,
     });
-
-module.exports = mongoose.model('users', userSchema);
+    userSchema.plugin(uniqueValidator);
+    const Users = mongoose.model("users", userSchema);
+    module.exports= Users;
+// module.exports = mongoose.model('users', UserSchema);

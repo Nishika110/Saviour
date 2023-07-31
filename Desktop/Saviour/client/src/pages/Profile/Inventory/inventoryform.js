@@ -1,11 +1,12 @@
 import React,{useState}from "react";
-import { Form, Input, Button, Radio ,message} from "antd";
+import { Form, Input,  Radio ,message} from "antd";
 import { getAntdInputValidation } from "../../../utils/helpers";
 import {Modal} from 'antd'
-import {useDispatch} from "react-redux";
+import {useDispatch,useSelector} from "react-redux";
 import {SetLoading} from "../../../redux/loadersSlice";
 import {AddInventory} from "../../../apicall/inventory";
 function InventoryForm ({open,setOpen,reloadData}) {
+     const {currentUser}=useSelector(state=>state.users);
     const [form]=Form.useForm();
     const[inventoryType,setInventoryType]=useState("in");
     const dispatch=useDispatch();
@@ -15,13 +16,16 @@ function InventoryForm ({open,setOpen,reloadData}) {
         const response=await AddInventory({
             ...values,
             inventoryType,
+            organization:currentUser._id,
         });
         dispatch(SetLoading(false));
-        if(response.success){
+        if(response.success){reloadData();
             message.success("Inventory Added Successfully");
             setOpen(false);
         }else{
+            
             throw new Error(response.message);
+
         }
 
        }catch(error){
@@ -57,7 +61,7 @@ function InventoryForm ({open,setOpen,reloadData}) {
                 <option value="o-">O-</option>
             </select>
         </Form.Item>
-        <Form.Item label={inventoryType==="out"?"Hospital Email":"Donor Email"} name='identity' rules={getAntdInputValidation()}>
+        <Form.Item label={inventoryType==="out"?"Hospital Email":"Donor Email"} name='email' rules={getAntdInputValidation()}>
        <Input type="email"/>
         </Form.Item>
         <Form.Item label="Quantity(ml)" name='quantity' rules={getAntdInputValidation()}>

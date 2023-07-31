@@ -36,7 +36,7 @@ a:hover{
 }
 .ant-btn-primary {
   color: white;
-  background-color: red;
+  background-color: rgb(231 0 0 );
   border: 1px solid #C50000;
 }
 .ant-btn-primary :hover {
@@ -67,5 +67,10 @@ i{
 
 .ant-form-item-label{
   padding: 3px !important;;
+}
+
+table{
+  border:1px solid crimson !important;
+  border-radius: 2px !important;
 }
 
