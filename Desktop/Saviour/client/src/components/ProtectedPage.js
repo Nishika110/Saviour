@@ -39,8 +39,8 @@ function ProtectedPage({ children }) {
     currentUser && (
     <div >
     {/* header */}
-     <div className="flex justify-between items-center bg-secondary text-white px-5 py-3">
-        <div>
+     <div className="flex justify-between items-center bg-secondary text-white px-5 py-3 ">
+        <div onClick={()=>navigate("/") }className="cursor-pointer">
           <h1 className="text-2xl">
             SAVIOUR BLOODBANK
           </h1>
@@ -56,7 +56,7 @@ function ProtectedPage({ children }) {
         </div>
       </div>
 {/* //body */}
-      <div className="px-5 py-2">{children}</div>
+      <div className="px-5 py-5">{children}</div>
     </div>
   ));
 }

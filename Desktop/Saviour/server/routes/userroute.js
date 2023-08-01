@@ -160,4 +160,53 @@ return res.send({
     });
 }
 });
+
+router.get("/get-all-organizations", authMiddleware, async (req, res) => {
+    try {
+        const donor = new mongoose.Types.ObjectId(req.body.userId);
+        //get all unique donor ids from inventory
+    
+    const uniqueOrgIds = await Inventory.distinct("organization",{donor,});
+         
+ const hospitals=await User.find({_id: {$in: uniqueOrgIds},});
+return res.send({
+
+    success: true,
+    message: "Hospitals fetched successfully",
+    data:  hospitals,
+});
+    } catch (error) {
+    return res.send({
+        success: false,
+        message: error.message,
+
+    });
+}
+});
+
+router.get("/get-all-organizations-hospitals", authMiddleware, async (req, res) => {
+    try {
+        const hospital = new mongoose.Types.ObjectId(req.body.userId);
+        //get all unique donor ids from inventory
+    
+    const uniqueOrgIds = await Inventory.distinct("organization",{hospital,});
+         
+ const hospitals=await User.find({_id: {$in: uniqueOrgIds},});
+return res.send({
+
+    success: true,
+    message: "Hospitals fetched successfully",
+    data:  hospitals,
+});
+    } catch (error) {
+    return res.send({
+        success: false,
+        message: error.message,
+
+    });
+}
+});
+
 module.exports = router;
+
+

@@ -29,7 +29,7 @@ const inventorySchema = new mongoose.Schema({
 
     organization: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "organization",
+        ref: "users",
         required: true,
     },
     //if inventory type out then hospital required else donor required

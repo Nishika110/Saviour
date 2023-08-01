@@ -104,7 +104,24 @@ router.post("/add", authMiddleware, async (req, res) => {
 router.get("/get", authMiddleware, async (req, res) => {
     try {
         //validate email and inventory type
-        const inventory = await Inventory.find({ organization: req.body.userId }).sort({createdAt:-1})//.populate('donor hospital');
+        const inventory = await Inventory.find({ organization: req.body.userId }).sort({createdAt:-1});
+        return res.send({ success: true, data: inventory });
+
+    }
+    catch (error) {
+        console.log(error);
+        return res.send({
+            success: false,
+            message: error.message,
+        })
+    }
+});
+
+router.post("/filter", authMiddleware, async (req, res) => {
+    try {
+        //validate email and inventory type
+        
+        const inventory = await Inventory.find(  req.body.filters ).sort({createdAt:-1}).populate("organization")//.populate("donor").populate("hospital");
         return res.send({ success: true, data: inventory });
 
     }

@@ -3,7 +3,7 @@ import InventoryForm from "./inventoryform";
 import {Button,Table, message } from "antd";
 import {useDispatch} from "react-redux";
 import { getDateFormat } from "../../../utils/helpers";
-import { GetInventory } from "../../../apicall/inventory";
+import { GetInventory} from "../../../apicall/inventory";
 import { SetLoading } from "../../../redux/loadersSlice";
 
 function Inventory() {
@@ -33,7 +33,7 @@ function Inventory() {
     //     return record.donor.name
     //   }
     //   else{ 
-    //     return  record.hospital.hospitalName
+    //     return  record.hospital.name
     //   }
     //  },
       },

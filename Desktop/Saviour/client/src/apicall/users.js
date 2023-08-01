@@ -22,4 +22,12 @@ export const GetAllDonors = ()=>{
 export const GetAllHospitals = ()=>{
     return axiosInstance("get","/api/users/get-all-hospitals");
  };
+
+ export const GetAllOrganizations = ()=>{
+    return axiosInstance("get","/api/users/get-all-organizations");
+ };
+
+ export const GetAllOrganizationsOfHospitals = ()=>{
+    return axiosInstance("get","/api/users/get-all-organizations-hospitals");
+ };
  

@@ -55,22 +55,26 @@ i{
   font-size:18px;
 }
 .ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  outline: none;
-  color:crimson;
-    transition: all 0.3s;
+  outline: none !important;;
+  color:crimson !important;;
+    transition: all 0.3s !important;;
 }
 :where(.css-dev-only-do-not-override-11avrc4).ant-tabs .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
-  outline: none;
-  color:crimson;
-  text-shadow: 0 0 0.25px currentcolor;
+  outline: none !important;;
+  color:crimson !important;;
+  text-shadow: 0 0 0.25px currentcolor !important;;
 }
 
 .ant-form-item-label{
-  padding: 3px !important;;
+  padding: 3px !important;
 }
 
 table{
   border:1px solid crimson !important;
   border-radius: 2px !important;
+}
+
+:where(.css-dev-only-do-not-override-11avrc4).ant-pagination .ant-pagination-item-active a {
+  color: black;
 }
 
