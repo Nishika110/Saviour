@@ -27,19 +27,23 @@ function Inventory() {
      },
      {
      title:"Reference",
-     dataIndex: "reference" ,
-    //  render : (text,record)=>{
-    //   if(record.InventoryType==="in"){
-    //     return record.donor.name
-    //   }
-    //   else{ 
-    //     return  record.hospital.name
-    //   }
-    //  },
+     dataIndex: "reference",
+    
+     render : (text, record)=>{
+        
+      if(record.inventoryType ==="in"){
+       
+       
+        return record.donor.name;
+      }
+      else{ 
+        return  record.hospital.hospitalName;
+      }
+     },
       },
       {
         title:"Date",
-        dataIndex: "date" ,
+        dataIndex: "createdAt" ,
         render:(text)=>getDateFormat(text)
          },
 

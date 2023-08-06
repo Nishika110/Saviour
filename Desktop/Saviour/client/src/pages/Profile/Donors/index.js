@@ -29,7 +29,7 @@ function Donors(){
     const columns=[{
       title:"Name",
       dataIndex: "name" ,
-    //  render:(text)=>text.toUpperCase()
+    
     },
     {
     title:"Email",
@@ -43,8 +43,8 @@ function Donors(){
        },
        {
        title:"Created At",
-       dataIndex: "cretaedAt" ,
-        render:(text)=>getDateFormat(text)
+       dataIndex: "createdAt" ,
+        render:(text)=>getDateFormat(text),
         },
         
     ] ;
@@ -62,4 +62,4 @@ function Donors(){
     )
 }
 
-export default Donors
+export default Donors;

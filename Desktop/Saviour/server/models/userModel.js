@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: function () {
-            if (this.userType === 'admin' || this.userType === 'donor') {
+            if (this.userType == "admin" || this.userType == "donor") {
                 return true;
             }
             return false;
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     hospitalName: {
         type: String,
         required: function () {
-            if (this.userType === 'hospital') {
+            if (this.userType == "hospital") {
                 return true;
             }
             return false;
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
     organizationName: {
         type: String,
         required: function () {
-            if (this.userType === 'organization') {
+            if (this.userType == "organization ") {
                 return true;
             }
             return false;
@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
     website: {
         type: String,
         required: function () {
-            if (this.userType === 'organization' || this.userType === 'hospital') {
+            if (this.userType =="organization " || this.userType == "hospital") {
                 return true;
             }
             return false;
@@ -50,7 +50,7 @@ const userSchema = new mongoose.Schema({
     address: {
         type: String,
         required: function () {
-            if (this.userType === 'organization' || this.userType === 'hospital') {
+            if (this.userType == "organization " || this.userType == "hospital") {
                 return true;
             }
             return false;
@@ -70,12 +70,11 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
 
-    }
+    },
+   
 },
     {
         timestamps: true,
     });
     userSchema.plugin(uniqueValidator);
-    const Users = mongoose.model("users", userSchema);
-    module.exports= Users;
-// module.exports = mongoose.model('users', UserSchema);
+    module.exports = mongoose.model("users", userSchema);

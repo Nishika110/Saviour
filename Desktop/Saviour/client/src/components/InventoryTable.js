@@ -5,7 +5,7 @@ import {message,Table} from "antd";
 import { SetLoading } from "../redux/loadersSlice";
 import { getDateFormat } from "../utils/helpers";
 
-function InventoryTable({filters,userType}){
+function InventoryTable({filters,userType,limit}){
     const [data,setData]=React.useState([]);
    
     const dispatch=useDispatch();
@@ -27,16 +27,20 @@ function InventoryTable({filters,userType}){
       {
       title:"Reference",
       dataIndex: "reference" ,
-      render : (text,record)=>{
-      // if(userType==="organization"){
-      //    return record.inventoryType==="in"?record.donor?.name: record.hospital?.hospitalName;
-      // }
-      // else{  return record.orgnization?.organizationName}
+      render :(text, record)=>{
+      if(userType=== "organization "){
+         return record.inventoryType==="in"?record.donor?.name: record.hospital?.hospitalName;
+      }
+      if(userType=== "donor"){
+        return record.organization.organizationName;
+     }
+     if(userType=== "hospital"){
       return record.organization.organizationName;
-    }},
+   }
+    },},
        {
          title:"Date",
-         dataIndex: "date" ,
+         dataIndex: "createdAt" ,
          render:(text)=>getDateFormat(text)
           },
  
@@ -44,19 +48,19 @@ function InventoryTable({filters,userType}){
    //change coloumns for hospital
    if(userType!=="organization "){
     columns.splice(0,1);  
-  columns[2].title="Organization Name" 
-  columns[3].title=userType==="hospital"?"Taken Date":"Donated Date" 
+  columns[2].title="Organization Name" ;
+  columns[3].title=userType==="hospital"?"Taken Date":"Donated Date" ;
 }
 
-if(userType=="hospital"){
-  columns.splice(0,1);  
-columns[2].title="Organization Name" 
-columns[3].title="Consumed On" 
-}
+// if(userType==="hospital"){
+// columns.splice(0,1);  
+// columns[2].title="Organization Name" 
+// columns[3].title="Consumed On" 
+// }
    const getData=async()=>{
      try {
          dispatch(SetLoading(true));
-         const response =  await GetInventorywithFilters(filters);
+         const response =  await GetInventorywithFilters(filters,limit);
          dispatch(SetLoading(false));
          if (response.success) {
          setData(response.data);

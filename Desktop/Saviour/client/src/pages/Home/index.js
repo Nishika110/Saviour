@@ -91,7 +91,7 @@ function  Home() {
      {currentUser.userType==="donor" && ( 
       <>
       <div>
-     <span className="text-secondary text-2xl  pt-5 font-semibold mt-5">Your Recent Doantions </span>
+     <span className="text-secondary text-2xl  pt-5 font-semibold mt-5">Your Recent Donations </span>
      <InventoryTable 
       filters={{donor:currentUser._id,}}
       //limit={5}
@@ -105,7 +105,7 @@ function  Home() {
      <span className="text-secondary text-2xl  pt-5 font-semibold mt-5">Your Recent Requests/Consumptions </span>
      <InventoryTable 
       filters={{hospital:currentUser._id,}}
-      //limit={5}
+      limit={5}
       userType={currentUser.userType}
      />
      </div>

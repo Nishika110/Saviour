@@ -52,8 +52,8 @@ function Organizations({userType}){
        },
        {
        title:"Created At",
-       dataIndex: "cretaedAt" ,
-        render:(text)=>getDateFormat(text)
+       dataIndex: "createdAt" ,
+        render:(text)=>getDateFormat(text),
         },
         {
           title:"Action",
@@ -84,4 +84,4 @@ function Organizations({userType}){
 }
 
 
-export default Organizations
+export default Organizations;

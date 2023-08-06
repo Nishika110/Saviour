@@ -49,8 +49,8 @@ function Donors() {
     },
     {
         title: "Created At",
-        dataIndex: "cretaedAt",
-        render: (text) => getDateFormat(text)
+        dataIndex: "createdAt",
+        render: (text) => getDateFormat(text),
     },
 
     ];
@@ -68,4 +68,4 @@ function Donors() {
     )
 }
 
-export default Donors
+export default Donors;
